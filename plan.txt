@@ -1,0 +1,13 @@
+React devtools
+
+1) MPA vs SPA (+ -) 
+2) Що таке реакт, звідки з'явився, для чого та коли використовуеться | Raect core -> ReactDOM, ReactNative, Electron
+3) DOM & Virtual DOM
+4) jsx and React.createElement()
+5) Що таке компоненти та як подiлити iнтерфейс
+6) Functional component (first render Header)
+7) function jsx VS js 
+8) one container(div, Fragment, <>)
+9) Props, (destr props), PropTypes, default props
+10) Create cardsContainer component
+11) Render collection and key
