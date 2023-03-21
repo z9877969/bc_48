@@ -1,5 +1,7 @@
 React devtools
 
+https://i-shop-test.netlify.app/
+
 1) MPA vs SPA (+ -) 
 2) Що таке реакт, звідки з'явився, для чого та коли використовуеться | Raect core -> ReactDOM, ReactNative, Electron
 3) DOM & Virtual DOM
