@@ -1,15 +1,19 @@
-React devtools
+0) React devtools
 
 https://i-shop-test.netlify.app/
 
-1) MPA vs SPA (+ -) 
-2) Що таке реакт, звідки з'явився, для чого та коли використовуеться | Raect core -> ReactDOM, ReactNative, Electron
-3) DOM & Virtual DOM
-4) jsx and React.createElement()
-5) Що таке компоненти та як подiлити iнтерфейс
-6) Functional component (first render Header)
-7) function jsx VS js 
-8) one container(div, Fragment, <>)
-9) Props, (destr props), PropTypes, default props
-10) Create cardsContainer component
-11) Render collection and key
+1) Як працює веб-додаток в браузері | MPA vs SPA (+ -) NextJS
+2) Що таке реакт, звідки з'явився, для чого та коли використовуеться
+3) npx create-react-app app-name | npx create-react-app . -> start app
+4) React (core) -> ReactDOM, ReactNative, Electron
+5) DOM & Virtual DOM
+6) jsx and React.createElement()
+7) Що таке компоненти та як подiлити iнтерфейс
+8) Functional component (first render Header)
+9) function jsx VS js 
+10) one container(div, Fragment, <>)
+11) Props, (destr props), PropTypes, default props
+12) Create cardsContainer component
+13) Render collection and key
+
+https://i.imgur.com/vbvggSv.png
