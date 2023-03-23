@@ -1,22 +1,22 @@
 import PropTypes from "prop-types";
+// import clsx from "clsx";
+import s from "./ProductsListItem.module.scss";
+const { clsx } = require("clsx");
 
-const ProductsListItem = ({ sale, url, model, price, currency }) => {
+const ProductsListItem = ({ sale: isSale, url, model, price, currency }) => {
   return (
-    <li className="products__item">
-      <div className="products__image-wrapper">
-        <p className={`products__sale ${sale ? "products__sale--active" : ""}`}>
-          Акція
-        </p>
-        <img className="products__image" src={url} alt={model} />
+    <li className={s.item}>
+      <div className={s.imageWrapper}>
+        {/* <p className={`${s.sale} ${sale ? s.saleActive : ""}`}>Акція</p> */}
+        <p className={clsx(s.sale, isSale && s.saleActive)}>Акція</p>
+        <img className={s.image} src={url} alt={model} />
       </div>
-      <div className="products__descr">
-        <h3 className="products__model">{model}</h3>
-        <span className="products__price">
-          {price ? price : "Товар відсутній"}
-        </span>
-        {price > 0 && <span className="products__currency">{currency}</span>}
+      <div className={s.descr}>
+        <h3 className={s.model}>{model}</h3>
+        <span className={s.price}>{price ? price : "Товар відсутній"}</span>
+        {price > 0 && <span className={s.currency}>{currency}</span>}
       </div>
-      <button className="products__btn-buy" type="button">
+      <button className={s.btnBuy} type="button">
         Купити
       </button>
     </li>

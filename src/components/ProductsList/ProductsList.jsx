@@ -18,7 +18,9 @@ const ProductsList = (props) => {
             model={model}
             type={type}
             sale={sale}
-          />
+          >
+            <h2>Item descr</h2>
+          </ProductsListItem>
         );
       })}
     </ul>
