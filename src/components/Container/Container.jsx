@@ -10,13 +10,3 @@ const Container = ({ children, title }) => {
 };
 
 export default Container;
-
-// {/* <Container>
-//   <ul>
-//     <li></li>
-//     <li></li>
-//     <li></li>
-//     <li></li>
-//     <li></li>
-//   </ul>
-// </Container>; */}

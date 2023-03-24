@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import { ButtonStyled } from "./Button.styled";
 
 const Button = ({ title, variant }) => {
@@ -6,8 +5,3 @@ const Button = ({ title, variant }) => {
 };
 
 export default Button;
-
-<>
-  <Button title="Ok" variant={"success"} />
-  <Button title="Cancel" variant={"error"} />
-</>;

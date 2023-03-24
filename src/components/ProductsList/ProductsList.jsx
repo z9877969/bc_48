@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
 import ProductsListItem from "../ProductsListItem/ProductsListItem";
-import "./ProductsList.css";
+import s from "./ProductsList.module.scss";
 
 const ProductsList = (props) => {
-  const { products } = props;
+  const { products, addProduct } = props;
 
   return (
-    <ul className="products">
+    <ul className={s.list}>
       {products.map(({ id, url, price, currency, model, type, sale }) => {
         return (
           <ProductsListItem
@@ -18,9 +18,8 @@ const ProductsList = (props) => {
             model={model}
             type={type}
             sale={sale}
-          >
-            <h2>Item descr</h2>
-          </ProductsListItem>
+            addProduct={addProduct}
+          />
         );
       })}
     </ul>
