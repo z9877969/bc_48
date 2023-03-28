@@ -18,6 +18,7 @@ class ToDoForm extends Component {
 
   handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+    // target -> input ->
     if (type === "checkbox") {
       if (this.state.dayPeriods.length === 2 && checked) return;
       this.setState((prev) => ({
@@ -35,6 +36,7 @@ class ToDoForm extends Component {
     e.preventDefault();
     const todo = { ...this.state, id: uuidv4(), isDone: false };
     this.props.addTodo(todo);
+    // this.props.addTodoList(todo);
   };
 
   render() {
@@ -166,14 +168,3 @@ class ToDoForm extends Component {
 // };
 
 export default ToDoForm;
-
-// class Test {
-//   static value = "static value";
-
-//   value = 25;
-// }
-
-// const test = new Test();
-
-// console.log("test.value :>> ", test.value);
-// console.log("Test.value :>> ", Test.value);
