@@ -10,14 +10,15 @@ class App extends Component {
   };
 
   render() {
-    console.log("RENDER_APP");
-
+    if (this.state.query.length > 0) {
+      throw new Error("Query really long");
+    }
     return (
-      <div className="App">
+      <>
         <SearchForm onSubmit={this.changeQuery} />
 
         <NewsPage query={this.state.query} />
-      </div>
+      </>
     );
   }
 }

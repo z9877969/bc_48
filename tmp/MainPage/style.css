@@ -1,0 +1,100 @@
+html {
+  font-family: sans-serif;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+li {
+  margin: 0;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+header {
+  padding: 1rem 0;
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+.section {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.container {
+  width: 360px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid darkgray;
+}
+
+.label-title {
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: rgb(147, 144, 144);
+}
+
+.label input {
+  border: none;
+  font-size: 1.2rem;
+  background: none;
+  color: rgb(80, 78, 78);
+}
+
+.label input:focus {
+  outline: none;
+}
+
+.label input[type='button'] {
+  cursor: pointer;
+}
+
+.btn-form {
+  display: block;
+  width: 50%;
+  padding: 0.6rem 1.2rem;
+  font-size: 1.2rem;
+  margin: 0 auto;
+  border: none;
+  border-radius: 0.2rem;
+  background: rgb(42, 38, 38);
+  color: bisque;
+}
+
+.btn-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+  gap: 1rem;
+}
+
+.btn {
+  width: 40%;
+  padding: 2.4rem 0;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 0.2rem;
+  background: rgb(130, 116, 116);
+  color: rgb(251, 251, 251);
+}
