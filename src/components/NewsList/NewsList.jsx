@@ -3,12 +3,15 @@ import s from "./NewsList.module.scss";
 
 // 10 + 10 ->
 
-const NewsList = ({ news, openModal }) => {
+const NewsList = ({ news, openModal, newsItemRef, itemsAmount = 10 }) => {
   return (
     <ul className={s.news}>
       {news.map((item, idx, arr) => (
         <li
           key={idx}
+          ref={
+            arr.length - itemsAmount === idx && idx !== 0 ? newsItemRef : null
+          }
           className={s.item}
           onClick={() => openModal({ title: item.title, url: item.url })}
         >

@@ -13,7 +13,6 @@ class SearchForm extends Component {
   };
 
   render() {
-    console.log("RENDER_FORM");
     return (
       <form className={s.form} onSubmit={this.handleSubmit}>
         <input
