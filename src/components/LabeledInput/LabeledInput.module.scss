@@ -1,0 +1,28 @@
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid darkgray;
+}
+
+.labelTitle {
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: rgb(147, 144, 144);
+}
+
+.label input {
+  border: none;
+  font-size: 1.2rem;
+  background: none;
+  color: var(--input-text-color);
+}
+
+.label input:focus {
+  outline: none;
+}
+
+.label input[type="button"] {
+  cursor: pointer;
+}

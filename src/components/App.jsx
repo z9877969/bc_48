@@ -1,23 +1,33 @@
 import { Component } from "react";
-import SearchForm from "../components/SearchForm/SearchForm";
-import NewsPage from "./NewsPage/NewsPage";
+import MainPage from "./MainPage/MainPage";
+import TransactionsHistoryPage from "./TransactionsHistoryPage/TransactionsHistoryPage";
 
 class App extends Component {
-  state = { query: "" };
+  state = {
+    activePage: "main", // income | expense
+  };
 
-  changeQuery = (query) => {
-    this.setState({ query });
+  changePage = (activePage = "main") => {
+    this.setState({ activePage });
   };
 
   render() {
-    if (this.state.query.length > 0) {
-      throw new Error("Query really long");
-    }
+    const { activePage } = this.state;
     return (
       <>
-        <SearchForm onSubmit={this.changeQuery} />
-
-        <NewsPage query={this.state.query} />
+        {activePage === "main" && <MainPage changePage={this.changePage} />}
+        {activePage === "income" && (
+          <TransactionsHistoryPage
+            transType={activePage}
+            changePage={this.changePage}
+          />
+        )}
+        {activePage === "expense" && (
+          <TransactionsHistoryPage
+            transType={activePage}
+            changePage={this.changePage}
+          />
+        )}
       </>
     );
   }

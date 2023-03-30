@@ -2,37 +2,19 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.scss";
 import App from "./components/App";
-
-class ErrorBoundary extends Component {
-  state = { hasError: false };
-
-  static getDerivedStateFromError(error) {
-    // Обновить состояние с тем, чтобы следующий рендер показал запасной UI.
-    console.log("error_gDSE :>> ", error);
-    return { hasError: true };
-  }
-
-  componentDidCatch(error, errorInfo) {
-    // Можно также сохранить информацию об ошибке в соответствующую службу журнала ошибок
-    console.log(error, errorInfo);
-    this.setState({ hasError: true });
-  }
-
-  render() {
-    if (this.state.hasError) {
-      // Можно отрендерить запасной UI произвольного вида
-      return <h1>Что-то пошло не так.</h1>;
-    }
-
-    return this.props.children;
-  }
-}
+import { ThemeProvider } from "styled-components";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ErrorBoundary>
+    <ThemeProvider
+      theme={{
+        color: {
+          btn: "#827474",
+        },
+      }}
+    >
       <App />
-    </ErrorBoundary>
+    </ThemeProvider>
   </React.StrictMode>
 );
