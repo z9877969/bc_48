@@ -1,6 +1,8 @@
 import { Component } from "react";
+import { ErrorBoundary } from "..";
 import SearchForm from "../components/SearchForm/SearchForm";
 import NewsPage from "./NewsPage/NewsPage";
+// import { ErrorBoundary } from "../index";
 
 class App extends Component {
   state = { query: "" };
@@ -12,11 +14,16 @@ class App extends Component {
   render() {
     console.log("RENDER_APP");
 
+    // if (this.state.query.length > 0) {
+    //   throw new Error("Query so long");
+    // }
+
     return (
       <div className="App">
         <SearchForm onSubmit={this.changeQuery} />
-
-        <NewsPage query={this.state.query} />
+        {/* <ErrorBoundary> */}
+          <NewsPage query={this.state.query} />
+        {/* </ErrorBoundary> */}
       </div>
     );
   }

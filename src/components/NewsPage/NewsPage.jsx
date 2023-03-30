@@ -49,7 +49,7 @@ class NewsPage extends Component {
         throw new Error("No news data");
       }
       this.setState((prev) => ({
-        news: page === 1 ? data.articles : [...prev.news, ...data.articles],
+        news: page === 1 ? data.newsList : [...prev.news, ...data.articles],
       }));
     } catch (error) {
       // console.log(error.message);
@@ -64,7 +64,7 @@ class NewsPage extends Component {
   };
 
   openModal = (modalData) => {
-    console.log("modalData :>> ", modalData);
+    // console.log("modalData :>> ", modalData);
     this.setState({ modalData });
   };
 
@@ -87,23 +87,12 @@ class NewsPage extends Component {
           </>
         )}
 
-        {
-          modalData && (
-            <Modal
-              {...modalData}
-              // url={modalData.url}
-              // title={modalData.title}
-              closeModal={this.closeModal}
-            />
-          )
-
-          // Modal({
-          //   ...modalData,
-          //   // url: modalData.url,
-          //   // title: modalData.title,
-          //   closeModal: this.closeModal,
-          // })
-        }
+        {modalData && (
+          <Modal
+            {...modalData}
+            closeModal={this.closeModal}
+          />
+        )}
       </>
     );
   }
