@@ -30,3 +30,9 @@ PrioritySelect.propTypes = {
 };
 
 export default PrioritySelect;
+
+// const fn = ({ a, b }) => {
+//   return a + b;
+// };
+// fn({ a: 2, b: 6 });
+// <fn a={2} b={6} />;

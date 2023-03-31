@@ -1,27 +1,89 @@
-import { v4 as uuidv4 } from "uuid";
 import ToDoForm from "../TodoForm/TodoForm";
 import ToDoList from "../TodoList/TodoList";
 import PrioritySelect from "../PrioritySelect/PrioritySelect";
 import { todo as todoList } from "../../data/todo";
-import { Component } from "react";
+import { Component, useEffect, useRef, useState } from "react";
 
-const createTodoList = (todo) =>
-  Array(15)
-    .fill(null)
-    .map((el) => ({ ...todo, id: uuidv4() }));
+const TodoPage = ({ qwe }) => {
+  const [todo, setTodo] = useState(
+    () => JSON.parse(localStorage.getItem("todo")) ?? []
+  );
+  const [filter, setFilter] = useState("all");
+  // const [a, setA] = useState(() => console.log("useState"));
 
-class TodoPage extends Component {
+  const addTodo = (todo) => {
+    setTodo((prevTodo) => [...prevTodo, todo]);
+    // this.setState(prevState => ({todo: [...prevState.todo, todo]}))
+  };
+
+  const removeTodo = (id) => {
+    setTodo((prevTodo) => prevTodo.filter((el) => el.id !== id));
+  };
+
+  const updateTodoStatus = (id) => {
+    setTodo((prevTodo) =>
+      prevTodo.map((el) => (el.id === id ? { ...el, isDone: !el.isDone } : el))
+    );
+  };
+
+  const changeFilter = (e) => {
+    setFilter(e.target.value);
+  };
+
+  const filterTodo = () => {
+    if (filter === "all") return todo;
+    return todo.filter((el) => el.priority === filter);
+  };
+
+  const filteredTodo = filterTodo();
+
+  const firstRenderRef = useRef(true); // current -> true
+
+  useEffect(() => {
+    if (firstRenderRef.current) {
+      firstRenderRef.current = false;
+      return;
+    }
+    console.log("UseEffect_TOdo");
+    localStorage.setItem("todo", JSON.stringify(todo));
+  }, [todo]);
+
+  // useEffect(() => {
+  //   console.log("UseEffect_Filter");
+  // }, [filter]);
+
+  // useEffect(() => {
+  //   console.log("UseEffect_firstRender");
+  // }, []);
+
+  // useEffect(() => {}, [qwe]);
+
+  console.log("Render");
+
+  return (
+    <>
+      <ToDoForm
+        addTodo={addTodo}
+        // todo={todo}
+      />
+      <PrioritySelect filter={filter} changeFilter={changeFilter} />
+      <ToDoList
+        todo={filteredTodo}
+        removeTodo={removeTodo}
+        updateTodoStatus={updateTodoStatus}
+      />
+    </>
+  );
+};
+
+class TodoPageClass extends Component {
   state = {
     todo: [],
     filter: "all",
-    isOpen: false,
   };
 
   componentDidMount() {
-    console.log("TodoPage_CDM");
-    // window.addEventListener("keydown", handler)
     const todo = JSON.parse(localStorage.getItem("todo")) || todoList;
-
     this.setState({ todo });
   }
 
@@ -29,20 +91,7 @@ class TodoPage extends Component {
     return document.body.clientHeight;
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log("snapshot :>> ", snapshot);
-    // if (prevState.todo !== this.state.todo) {
-    //   window.scrollTo({
-    //     top: snapshot,
-    //     behavior: "smooth",
-    //   });
-    // }
-
-    if (prevState.isOpen !== this.state.isOpen) {
-      // this.setState({ filter: "all" });
-      this.setState({ isOpen: false });
-    }
-
+  componentDidUpdate(prevProps, prevState) {
     if (prevState.todo !== this.state.todo) {
       localStorage.setItem("todo", JSON.stringify(this.state.todo));
     }
@@ -51,12 +100,6 @@ class TodoPage extends Component {
   addTodo = (todo) => {
     this.setState((prev) => ({
       todo: [...prev.todo, todo],
-    }));
-  };
-
-  addTodoList = (todo) => {
-    this.setState((prev) => ({
-      todo: [...prev.todo, ...createTodoList(todo)],
     }));
   };
 
@@ -86,19 +129,15 @@ class TodoPage extends Component {
   };
 
   render() {
-    const { filter } = this.state;
+    const { filter, todo } = this.state;
 
     const filteredTodo = this.filterTodoList();
-    console.log("TodoPage_Render");
     return (
       <>
-        <ToDoForm addTodo={this.addTodo} addTodoList={this.addTodoList} />
-        <button
-          type="button"
-          onClick={() => this.setState((p) => ({ isOpen: !p.isOpen }))}
-        >
-          Click - {`${this.state.isOpen}`}
-        </button>
+        <ToDoForm
+          addTodo={this.addTodo}
+          // todo={todo}
+        />
         <PrioritySelect filter={filter} changeFilter={this.changeFilter} />
         <ToDoList
           todo={filteredTodo}
@@ -111,3 +150,29 @@ class TodoPage extends Component {
 }
 
 export default TodoPage;
+
+// class Component {
+//   constructor(props){
+//    this.props = props;
+//   }
+// }
+
+// class Test extends Component {
+//   constructor(props) {
+//     super(props);
+//     // this.props = props;
+//   }
+
+//   getValue(){
+//     return this.props.a + this.props.b
+//   }
+
+//   render(){
+
+//     return <h1>Test - {this.getValue()}</h1>
+//   }
+// }
+
+// const test = new Test({ a: 2, b: 6 });
+
+// <Test a={2} b={6} />;

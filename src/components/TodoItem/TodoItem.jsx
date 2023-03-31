@@ -1,84 +1,71 @@
-import { Component, PureComponent } from "react";
+import { Component, PureComponent, useEffect, useState, useRef } from "react";
 import s from "../TodoList/TodoList.module.css";
 
-class TodoItem extends PureComponent {
-  //   static getDerivedStateFromProps(newProps, curState) {
-  //     if (newProps.priority === "low") {
-  //       return { ...curState, count: 10 };
-  //     }
-  //     return null;
-  //   }
+const TodoItem = ({
+  id,
+  date,
+  title,
+  priority,
+  descr,
+  isDone,
+  updateTodoStatus,
+  removeTodo,
+}) => {
+  // #intervalId;
 
-  #intervalId;
+  const [count, setCount] = useState(0);
 
-  state = {
-    count: 0,
-  };
+  // let intervalId = null;
 
-  componentDidMount() {
-    this.#intervalId = setInterval(() => {
-      console.log("item");
-      this.setState((p) => ({
-        count: p.count + 1,
-      }));
+  const intervalIdRef = useRef(null);
+  const btnStopRef = useRef(null);
+  // console.log("ref :>> ", intervalIdRef);
+
+  useEffect(() => {
+    intervalIdRef.current = setInterval(() => {
+      setCount((prevCount) => prevCount + 1);
+      // console.log("interval");
     }, 1000);
-  }
 
-  componentWillUnmount() {
-    clearInterval(this.#intervalId);
-  }
+    // console.log("intervalId_useEffect :>> ", intervalIdRef.current);
 
-  //   shouldComponentUpdate(newProps, newState) {
-  //     const newPropsStr = JSON.stringify(newProps);
-  //     const newStateStr = JSON.stringify(newState);
-  //     const curSateStr = JSON.stringify(this.state);
-  //     const curPropsStr = JSON.stringify(this.props);
-  //     if (newPropsStr !== curPropsStr || newStateStr !== curSateStr) return true;
-  //     return false; // no render
-  //   }
+    return () => {
+      clearInterval(intervalIdRef.current);
+    };
+  }, []);
 
-  //   componentDidMount() {
-  //     console.log("CDM");
-  //   }
+  // console.log("intervalId :>> ", intervalIdRef.current);
+  // console.log(btnStopRef);
 
-  render() {
-    const {
-      id,
-      date,
-      title,
-      priority,
-      descr,
-      isDone,
-      updateTodoStatus,
-      removeTodo,
-    } = this.props;
-
-    // console.log("TodoItem_Render");
-
-    return (
-      <li key={id} className={s.toDoItem}>
-        <p className={s.date}>{date}</p>
-        <h3 className={`${s.title} ${true && s.isDone}`}>{title}</h3>
-        <h3>Count: {this.state.count}</h3>
-        <p className={`${s.descr} ${true && s.isDone}`}>
-          PRIORITY - {priority}
-        </p>
-        <p className={`${s.descr} ${true && s.isDone}`}>{descr}</p>
-        <label className={s.status}>
-          <input
-            type="checkbox"
-            name="status"
-            checked={isDone}
-            onChange={() => updateTodoStatus(id)}
-          />
-          Done
-        </label>
-        <button className={s.todoBtn} onClick={(e) => removeTodo(id)}>
-          Remove
-        </button>
-      </li>
-    );
-  }
-}
+  return (
+    <li key={id} className={s.toDoItem}>
+      <button
+        ref={btnStopRef}
+        type="button"
+        onClick={() => clearInterval(intervalIdRef.current)}
+      >
+        Stop
+      </button>
+      <p className={s.date}>{date}</p>
+      <h3 className={`${s.title} ${true && s.isDone}`}>{title}</h3>
+      <h3>Count: {count}</h3>
+      <p className={`${s.descr} ${true && s.isDone}`}>PRIORITY - {priority}</p>
+      <p className={`${s.descr} ${true && s.isDone}`}>{descr}</p>
+      <label className={s.status}>
+        <input
+          type="checkbox"
+          name="status"
+          checked={isDone}
+          onChange={() => updateTodoStatus(id)}
+        />
+        Done
+      </label>
+      <button className={s.todoBtn} onClick={(e) => removeTodo(id)}>
+        Remove
+      </button>
+    </li>
+  );
+  // }
+};
 
 export default TodoItem;
