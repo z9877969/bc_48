@@ -1,11 +1,11 @@
 # BC_48
 
-## l-08.hooks-1
+## l-08.hooks-2
 
-### 1) useState
+### 1) useMemo, memo
 
-### 2) useEffect
+### 2) useCallback
 
-### 3) useRef (ref/interval)
+### 3) creeateContext/useContext
 
-### 4) useLocalStorage
+### 4) useLocalStorage, useForm
