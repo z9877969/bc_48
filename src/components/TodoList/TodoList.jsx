@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import s from "./TodoList.module.css";
 import TodoItem from "../TodoItem/TodoItem";
+import { memo } from "react";
 
 const TodoList = ({ todo = [], removeTodo, updateTodoStatus }) => {
   return (
@@ -32,4 +33,4 @@ TodoList.propTypes = {
   updateTodoStatus: PropTypes.func.isRequired,
 };
 
-export default TodoList;
+export default memo(TodoList);

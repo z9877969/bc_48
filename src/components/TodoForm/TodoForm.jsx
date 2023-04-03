@@ -1,15 +1,18 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import { v4 as uuidv4 } from "uuid";
 import PropTypes from "prop-types";
 import s from "./TodoForm.module.scss";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
+
+const initialState = {
+  date: "2023-03-31",
+  title: "",
+  descr: "",
+  priority: "",
+};
 
 const TodoForm = ({ addTodo }) => {
-  const [form, setForm] = useState({
-    date: "2023-03-31",
-    title: "",
-    descr: "",
-    priority: "",
-  });
+  const [form, setForm] = useLocalStorage(initialState, "todoForm");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,8 +27,9 @@ const TodoForm = ({ addTodo }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     addTodo({ ...form, isDone: false, id: uuidv4() });
+    setForm(initialState);
   };
-
+  console.log("TodoForm");
   return (
     <form className={s.form} onSubmit={handleSubmit}>
       <label className={s.label}>
@@ -114,4 +118,9 @@ TodoForm.propTypes = {
   addTodo: PropTypes.func.isRequired,
 };
 
-export default TodoForm;
+export default memo(TodoForm); // memo TodoForm
+
+// const memO = (Component) => (props) => {
+//   // condition state | props
+//   return <Component {...props} />
+// }

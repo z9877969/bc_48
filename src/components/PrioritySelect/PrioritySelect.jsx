@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { useEffect } from "react";
 
 const selectStyles = {
   display: "block",
@@ -9,6 +10,12 @@ const selectStyles = {
 };
 
 const PrioritySelect = ({ filter, changeFilter }) => {
+
+  // useEffect(() => {
+  //   console.log("object", filter);
+  //   // eslint-disable-next-line
+  // }, [])
+
   return (
     <select
       name="priority"
