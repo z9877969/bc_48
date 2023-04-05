@@ -11,7 +11,8 @@ const NewsPage = () => {
     console.log("go back");
     // navigate("/about");
     // navigate({ pathname: "/about", search: "color=red" });
-    navigate(location.state);
+    const prevPageLoacation = location.state;
+    navigate(prevPageLoacation);
   };
 
   return (
