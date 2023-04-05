@@ -1,28 +1,28 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import Button from "../components/Button/Button";
+import CountryNewsNav from "../components/CountryNewsNav/CountryNewsNav";
 
 const NewsPage = () => {
+  // /news  + /ua -> /news/ua
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleGoBack = () => {
+    console.log("go back");
+    // navigate("/about");
+    // navigate({ pathname: "/about", search: "color=red" });
+    navigate(location.state);
+  };
+
   return (
     <>
-      <h1>NewsPage</h1>
-      <nav>
-        <ul>
-          <li>
-            <NavLink to="ua">UA</NavLink>
-          </li>
-          <li>
-            <NavLink to="us">US</NavLink>
-          </li>
-          <li>
-            <NavLink to="pl">PL</NavLink>
-          </li>
-          <li>
-            <NavLink to="fr">FR</NavLink>
-          </li>
-        </ul>
-      </nav>
+      <Button title={"GoBack"} onClick={handleGoBack} />
+      <CountryNewsNav />
       <Outlet />
     </>
   );
 };
 
 export default NewsPage;
+
+// console.log('window.history :>> ', window.history);

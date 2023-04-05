@@ -1,31 +1,29 @@
-import { useEffect, useState } from "react";
-import { Outlet, useParams } from "react-router-dom";
-import { getCountryNewsapi } from "../../services/newsApi";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import s from "./NewsList.module.scss";
 
-const NewsList = () => {
-  // const { country } = useParams();
-  const { country } = useParams();
-  const [news, setNews] = useState([]);
-
-  useEffect(() => {
-    getCountryNewsapi(country)
-      .then(({ articles }) => {
-        setNews(articles);
-      })
-      .catch((err) => console.log(err));
-  }, [country]);
-
+const NewsList = ({ news }) => {
   return (
-    <>
-      <h2>News {country} </h2>
-      <Outlet />
-      <ol>
-        {news.map(({ title, url }) => (
-          <li key={url}>{title}</li>
-        ))}
-      </ol>
-    </>
+    <ul className={s.news}>
+      {news.map((item, idx) => (
+        <li key={idx} className={s.item}>
+          <Link to={"/some-news/" + item.urlToImage}>
+            <img className={s.img} src={item.urlToImage} alt="" />
+            <div className={s.textWrapper}>
+              <h3 className={s.title}>{item.title}</h3>
+              <p className={s.author}>{item.author}</p>
+              <p className={s.date}>{item.publishedAt}</p>
+              <p className={s.descr}>{item.description}</p>
+            </div>
+          </Link>
+        </li>
+      ))}
+    </ul>
   );
+};
+
+NewsList.propTypes = {
+  news: PropTypes.array.isRequired,
 };
 
 export default NewsList;
