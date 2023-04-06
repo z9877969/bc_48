@@ -1,6 +1,3 @@
-import PropTypes from "prop-types";
-import { useEffect } from "react";
-
 const selectStyles = {
   display: "block",
   width: "150px",
@@ -9,20 +6,9 @@ const selectStyles = {
   marginTop: "12px",
 };
 
-const PrioritySelect = ({ filter, changeFilter }) => {
-
-  // useEffect(() => {
-  //   console.log("object", filter);
-  //   // eslint-disable-next-line
-  // }, [])
-
+const PrioritySelect = () => {
   return (
-    <select
-      name="priority"
-      style={selectStyles}
-      value={filter}
-      onChange={changeFilter}
-    >
+    <select name="priority" style={selectStyles} value={"all"} onChange={null}>
       <option value="all">All</option>
       <option value="low">Low</option>
       <option value="medium">Medium</option>
@@ -31,15 +17,4 @@ const PrioritySelect = ({ filter, changeFilter }) => {
   );
 };
 
-PrioritySelect.propTypes = {
-  filter: PropTypes.string.isRequired,
-  changeFilter: PropTypes.func.isRequired,
-};
-
 export default PrioritySelect;
-
-// const fn = ({ a, b }) => {
-//   return a + b;
-// };
-// fn({ a: 2, b: 6 });
-// <fn a={2} b={6} />;

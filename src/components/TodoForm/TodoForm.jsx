@@ -2,7 +2,8 @@ import { useState, memo } from "react";
 import { v4 as uuidv4 } from "uuid";
 import PropTypes from "prop-types";
 import s from "./TodoForm.module.scss";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { useDispatch } from "react-redux";
+import { addTodo } from "../../redux/todo/todoActions";
 
 const initialState = {
   date: "2023-03-31",
@@ -11,8 +12,9 @@ const initialState = {
   priority: "",
 };
 
-const TodoForm = ({ addTodo }) => {
-  const [form, setForm] = useLocalStorage(initialState, "todoForm");
+const TodoForm = () => {
+  const dispatch = useDispatch();
+  const [form, setForm] = useState(initialState);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,10 +28,14 @@ const TodoForm = ({ addTodo }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addTodo({ ...form, isDone: false, id: uuidv4() });
+    const newTodo = { ...form, isDone: false, id: uuidv4() };
+    console.log(newTodo);
+    dispatch(addTodo(newTodo));
     setForm(initialState);
   };
-  console.log("TodoForm");
+
+  // const { date } = form;
+
   return (
     <form className={s.form} onSubmit={handleSubmit}>
       <label className={s.label}>
@@ -119,8 +125,3 @@ TodoForm.propTypes = {
 };
 
 export default memo(TodoForm); // memo TodoForm
-
-// const memO = (Component) => (props) => {
-//   // condition state | props
-//   return <Component {...props} />
-// }

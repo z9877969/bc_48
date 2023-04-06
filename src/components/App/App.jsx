@@ -1,19 +1,17 @@
-// import Counter from "../Counter/Counter";
-import { useState } from "react";
-import { ChangeBgProvider } from "../../context/ChangeBgProvider";
+import { Navigate, Route, Routes } from "react-router-dom";
+import Counter from "../Counter/Counter";
+import MainNav from "../MainNav/MainNav";
 import TodoPage from "../TodoPage/TodoPage";
 
 const App = () => {
-  const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      <button onClick={() => setIsOpen((p) => !p)}>
-        Click - {`${isOpen}`}
-      </button>
-      <ChangeBgProvider>
-        <TodoPage />
-      </ChangeBgProvider>
-      {/* <Counter /> */}
+      <MainNav />
+      <Routes>
+        <Route path="/todo" element={<TodoPage />} />
+        <Route path="/counter" element={<Counter />} />
+        <Route path="*" element={<Navigate to={"/counter"} />} />
+      </Routes>
     </>
   );
 };
