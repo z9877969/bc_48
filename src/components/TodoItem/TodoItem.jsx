@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
-import { removeTodo } from "../../redux/todo/todoActions";
+import { removeTodo, updateTodoStatus } from "../../redux/todo/todoActions";
+import { remove, updateStatus } from "../../redux/todo/todoSlice";
 import s from "../TodoList/TodoList.module.css";
 
 const TodoItem = ({ id, date, title, priority, descr, isDone }) => {
@@ -12,10 +13,24 @@ const TodoItem = ({ id, date, title, priority, descr, isDone }) => {
       <p className={`${s.descr} ${true && s.isDone}`}>PRIORITY - {priority}</p>
       <p className={`${s.descr} ${true && s.isDone}`}>{descr}</p>
       <label className={s.status}>
-        <input type="checkbox" name="status" checked={isDone} onChange={null} />
+        <input
+          type="checkbox"
+          name="status"
+          checked={isDone}
+          onChange={() => {
+            // dispatch(updateTodoStatus(id))
+            dispatch(updateStatus(id));
+          }}
+        />
         Done
       </label>
-      <button className={s.todoBtn} onClick={() => dispatch(removeTodo(id))}>
+      <button
+        className={s.todoBtn}
+        onClick={() => {
+          // dispatch(removeTodo(id))
+          dispatch(remove(id));
+        }}
+      >
         Remove
       </button>
     </li>

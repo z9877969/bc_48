@@ -4,11 +4,19 @@ import s from "./TodoList.module.css";
 import TodoItem from "../TodoItem/TodoItem";
 
 const TodoList = () => {
-  const todo = useSelector((state) => state.todo);
+  const todo = useSelector((state) => state.todo.items);
+  const filter = useSelector((state) => state.todo.filter);
+
+  const filterTodo = () => {
+    if (filter === "all") return todo;
+    return todo.filter((el) => el.priority === filter);
+  };
+
+  const filteredTodo = filterTodo();
 
   return (
     <ul className={s.container}>
-      {todo.map((el) => (
+      {filteredTodo.map((el) => (
         <TodoItem key={el.id} {...el} />
       ))}
     </ul>

@@ -1,21 +1,38 @@
-import { TODO_ADD, TODO_REMOVE } from "./todoConstants";
+import { combineReducers, createReducer } from "@reduxjs/toolkit";
+import {
+  addTodo,
+  changeFilter,
+  removeTodo,
+  updateTodoStatus,
+} from "./todoActions";
 
-const todoReducer = (state = [], action) => {
-  switch (action.type) {
-    case TODO_ADD:
-      return [...state, action.payload];
-    case TODO_REMOVE:
-      return state.filter((el) => el.id !== action.payload);
-    default:
-      return state;
-  }
-};
+const itemsReducer = createReducer([], (builder) => {
+  builder
+    .addCase(addTodo, (state, { payload }) => [...state, payload])
+    .addCase(removeTodo, (state, { payload }) =>
+      state.filter((el) => el.id !== payload)
+    )
+    .addCase(updateTodoStatus, (state, { payload }) => {
+      return state.map((el) =>
+        el.id !== payload ? el : { ...el, isDone: !el.isDone }
+      );
+    })
+    // .addMatcher(
+    //   (action) => true,
+    //   (state, { payload }) => state
+    // )
+    // .addDefaultCase((state, { payload }) => state);
+});
+
+export const filterReducer = createReducer("all", (builder) => {
+  builder.addCase(changeFilter, (state, { payload }) => {
+    return payload;
+  });
+});
+
+const todoReducer = combineReducers({
+  items: itemsReducer,
+  filter: filterReducer,
+});
 
 export default todoReducer;
-
-const fn = (a = 2) => {
-  return a;
-};
-
-fn(); // 2
-fn(5); // 5

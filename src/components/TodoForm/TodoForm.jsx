@@ -3,7 +3,8 @@ import { v4 as uuidv4 } from "uuid";
 import PropTypes from "prop-types";
 import s from "./TodoForm.module.scss";
 import { useDispatch } from "react-redux";
-import { addTodo } from "../../redux/todo/todoActions";
+// import { addTodo } from "../../redux/todo/todoActions";
+import { add as addTodo } from "../../redux/todo/todoSlice";
 
 const initialState = {
   date: "2023-03-31",
@@ -29,12 +30,9 @@ const TodoForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newTodo = { ...form, isDone: false, id: uuidv4() };
-    console.log(newTodo);
     dispatch(addTodo(newTodo));
     setForm(initialState);
   };
-
-  // const { date } = form;
 
   return (
     <form className={s.form} onSubmit={handleSubmit}>
@@ -118,10 +116,6 @@ const TodoForm = () => {
       </button>
     </form>
   );
-};
-
-TodoForm.propTypes = {
-  addTodo: PropTypes.func.isRequired,
 };
 
 export default memo(TodoForm); // memo TodoForm
