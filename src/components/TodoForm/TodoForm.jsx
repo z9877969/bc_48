@@ -1,20 +1,36 @@
 import { useState, memo } from "react";
 import { v4 as uuidv4 } from "uuid";
-import PropTypes from "prop-types";
 import s from "./TodoForm.module.scss";
-import { useDispatch } from "react-redux";
-// import { addTodo } from "../../redux/todo/todoActions";
-import { add as addTodo } from "../../redux/todo/todoSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addTodoApi } from "services/firebaseApi";
+import { addTodo } from "redux/todo/todoOperations";
+// import { add as addTodo } from "../../redux/todo/todoSlice";
 
 const initialState = {
   date: "2023-03-31",
-  title: "",
   descr: "",
   priority: "",
 };
 
+// const addTodo = (newTodo, dispatch) => {
+//   dispatch({ type: "request" }); // isLoading: true
+//   fetch("", newTodo)
+//     .then((data) => dispatch({ type: "success", payload: data })) // isLoading: false | colection.push(payload)
+//     .catch((err) => dispatch({ type: "error", payload: err.message })); // isLoading: false | error: payload
+// };
+
+// const addTodoOperation = (newTodo) => {
+//   return (dispatch, getState) => {
+//     dispatch({ type: "request" }); // isLoading: true
+//     fetch("", newTodo)
+//       .then((data) => dispatch({ type: "success", payload: data })) // isLoading: false | colection.push(payload)
+//       .catch((err) => dispatch({ type: "error", payload: err.message })); // isLoading: false | error: payload
+//   };
+// };
+
 const TodoForm = () => {
   const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.todo.isLoading);
   const [form, setForm] = useState(initialState);
 
   const handleChange = (e) => {
@@ -30,9 +46,13 @@ const TodoForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newTodo = { ...form, isDone: false, id: uuidv4() };
+
     dispatch(addTodo(newTodo));
+
     setForm(initialState);
   };
+
+  console.log("TodoForm_Render");
 
   return (
     <form className={s.form} onSubmit={handleSubmit}>
@@ -43,16 +63,6 @@ const TodoForm = () => {
           name="date"
           type="date"
           value={form.date}
-          onChange={handleChange}
-        />
-      </label>
-      <label className={s.label}>
-        <span> Title </span>
-        <input
-          className={s.input}
-          type="text"
-          name="title"
-          value={form.title}
           onChange={handleChange}
         />
       </label>
@@ -112,10 +122,10 @@ const TodoForm = () => {
         </div>
       </div>
       <button className={s.submit} type="submit">
-        Ok
+        {isLoading ? "Loading..." : "Ok"}
       </button>
     </form>
   );
 };
 
-export default memo(TodoForm); // memo TodoForm
+export default TodoForm; // memo TodoForm

@@ -1,11 +1,5 @@
-import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { decrement, increment, reset } from "../../redux/counter/counterSlice";
-// import {
-//   counterDecrement,
-//   counterIncrement,
-//   counterReset,
-// } from "../../redux/counter/counterActions";
 import s from "./Counter.module.scss";
 
 const Counter = () => {
@@ -13,23 +7,16 @@ const Counter = () => {
   const count = useSelector((state) => state.count);
 
   const handleDecrement = () => {
-    // dispatch(counterDecrement(20));
-    dispatch(decrement(20)); // {type: "qwe/decrement", payload: 20}
+    dispatch(decrement(20));
   };
 
   const handleIncrement = () => {
-    // dispatch(counterIncrement(45));
     dispatch(increment(45));
   };
 
   const handleReset = () => {
-    // dispatch(counterReset());
     dispatch(reset());
   };
-
-  useEffect(() => {
-    // fetch().then(d => dispatch({type: "counter/init", payload: d}))
-  }, []);
 
   return (
     <div className={s.container}>

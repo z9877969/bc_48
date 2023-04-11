@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import Counter from "../Counter/Counter";
 import MainNav from "../MainNav/MainNav";
-import TodoPage from "../TodoPage/TodoPage";
+import Counter from "pages/CounterPage";
+import TodoPage from "pages/TodoPage";
 
 const App = () => {
   return (

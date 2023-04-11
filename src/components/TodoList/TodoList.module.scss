@@ -1,0 +1,15 @@
+.close {
+  display: inline-block;
+  color: red;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.container {
+  margin: 0 auto;
+  width: 800px;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+}

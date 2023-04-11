@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { useSelector } from "react-redux";
-import s from "./TodoList.module.css";
 import TodoItem from "../TodoItem/TodoItem";
+import s from "./TodoList.module.scss";
 
 const TodoList = () => {
   const todo = useSelector((state) => state.todo.items);

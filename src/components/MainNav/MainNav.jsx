@@ -23,10 +23,19 @@ const linkStyle = {
   borderRadius: "4px",
   color: "white",
   textDecoration: "none",
+  transition: "fontSize 1s linear",
 };
 
 const getLinkActiveStyle = ({ isActive }) =>
-  isActive ? { ...linkStyle, color: "yellow" } : linkStyle;
+  isActive
+    ? {
+        ...linkStyle,
+        color: "yellow",
+        fontSize: "30px",
+        fontWeight: "bold",
+        border: "2.5px solid blue",
+      }
+    : linkStyle;
 
 const MainNav = () => {
   return (
