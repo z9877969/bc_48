@@ -1,4 +1,7 @@
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { selectorTheme } from "redux/theme/themeSelectors";
+import { themeToggle } from "redux/theme/themeSlice";
 
 const navStyle = {
   display: "flex",
@@ -38,8 +41,14 @@ const getLinkActiveStyle = ({ isActive }) =>
     : linkStyle;
 
 const MainNav = () => {
+  const dispatch = useDispatch();
+  const theme = useSelector(selectorTheme);
+
   return (
     <nav style={navStyle}>
+      <button onClick={() => dispatch(themeToggle())}>
+        ThemeToggle - {theme}
+      </button>
       <ul style={listStyle}>
         <li style={itemStyle}>
           <NavLink style={getLinkActiveStyle} to="/todo">

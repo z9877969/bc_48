@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { logout } from "redux/todo/todoSlice";
 
 const iS = 300;
 
@@ -16,6 +17,7 @@ const counterSlice = createSlice({
       return iS;
     },
   },
+  extraReducers: (b) => b.addCase(logout, () => iS),
 });
 
 // counter/increment

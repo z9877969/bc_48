@@ -1,32 +1,14 @@
-import { useState, memo } from "react";
+import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import s from "./TodoForm.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { addTodoApi } from "services/firebaseApi";
 import { addTodo } from "redux/todo/todoOperations";
-// import { add as addTodo } from "../../redux/todo/todoSlice";
 
 const initialState = {
   date: "2023-03-31",
   descr: "",
   priority: "",
 };
-
-// const addTodo = (newTodo, dispatch) => {
-//   dispatch({ type: "request" }); // isLoading: true
-//   fetch("", newTodo)
-//     .then((data) => dispatch({ type: "success", payload: data })) // isLoading: false | colection.push(payload)
-//     .catch((err) => dispatch({ type: "error", payload: err.message })); // isLoading: false | error: payload
-// };
-
-// const addTodoOperation = (newTodo) => {
-//   return (dispatch, getState) => {
-//     dispatch({ type: "request" }); // isLoading: true
-//     fetch("", newTodo)
-//       .then((data) => dispatch({ type: "success", payload: data })) // isLoading: false | colection.push(payload)
-//       .catch((err) => dispatch({ type: "error", payload: err.message })); // isLoading: false | error: payload
-//   };
-// };
 
 const TodoForm = () => {
   const dispatch = useDispatch();
@@ -51,8 +33,6 @@ const TodoForm = () => {
 
     setForm(initialState);
   };
-
-  console.log("TodoForm_Render");
 
   return (
     <form className={s.form} onSubmit={handleSubmit}>
@@ -128,4 +108,4 @@ const TodoForm = () => {
   );
 };
 
-export default TodoForm; // memo TodoForm
+export default TodoForm;

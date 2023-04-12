@@ -11,11 +11,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 const TodoPage = () => {
   const dispatch = useDispatch();
-  const isTodoExist = useSelector((state) => Boolean(state.todo.items.length));
+  // const isTodoExist = useSelector((state) => Boolean(state.todo.items.length));
 
   useEffect(() => {
-    !isTodoExist && dispatch(getTodo());
-  }, [dispatch, isTodoExist]);
+    dispatch(getTodo());
+  }, [dispatch]);
 
   return (
     <>
