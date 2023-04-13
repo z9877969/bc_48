@@ -7,8 +7,6 @@ import s from "./TodoList.module.scss";
 const TodoList = () => {
   const filteredTodo = useSelector(selectorFilteredTodo);
 
-  console.log("TodoList_Render");
-
   return (
     <ul className={s.container}>
       {filteredTodo.map((el) => (

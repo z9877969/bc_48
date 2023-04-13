@@ -27,7 +27,7 @@ const TodoForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newTodo = { ...form, isDone: false, id: uuidv4() };
+    const newTodo = { ...form, isDone: false };
 
     dispatch(addTodo(newTodo));
 

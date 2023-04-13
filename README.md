@@ -1,6 +1,6 @@
 # BC_48
 
-# Lesson-15(async-thunk.selectors)
+# Lesson-16(auth)
 
-### 1. createAsyncThunk
-### 2. selectors(reselect)
+### 1. auth | token
+### 2. AuthForm

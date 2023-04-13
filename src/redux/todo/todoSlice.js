@@ -6,22 +6,19 @@ import {
   updateTodoStatus,
 } from "./todoOperations";
 
+const initialState = {
+  items: [],
+  filter: "all",
+  isLoading: false,
+  error: null,
+};
+
 const todoSlice = createSlice({
   name: "todo",
-  initialState: {
-    items: [],
-    filter: "all",
-    isLoading: false,
-    error: null,
-  },
+  initialState,
   reducers: {
     logout() {
-      return {
-        items: [],
-        filter: "all",
-        isLoading: false,
-        error: null,
-      };
+      return initialState;
     },
     changeFilter: {
       reducer(state, { payload }) {
@@ -39,28 +36,14 @@ const todoSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // .addCase(addTodo.pending, (state) => {
-      //   state.isLoading = true;
-      // })
       .addCase(addTodo.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.items.push(payload);
       })
-      // .addCase(addTodo.rejected, (state, { paylaod }) => {
-      //   state.isLoading = false;
-      //   state.error = paylaod;
-      // })
-      // .addCase(getTodo.pending, (state) => {
-      //   state.isLoading = true;
-      // })
       .addCase(getTodo.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.items = payload;
       })
-      // .addCase(getTodo.rejected, (state, { payload }) => {
-      //   state.isLoading = false;
-      //   state.error = payload;
-      // })
       .addCase(removeTodo.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.items = state.items.filter((el) => el.id !== payload);
@@ -88,12 +71,6 @@ const todoSlice = createSlice({
   },
 });
 
-export const {
-  updateStatusRequest,
-  updateStatusSuccess,
-  updateStatusError,
-  changeFilter,
-  logout,
-} = todoSlice.actions;
+export const { changeFilter, logout } = todoSlice.actions;
 
 export default todoSlice.reducer;

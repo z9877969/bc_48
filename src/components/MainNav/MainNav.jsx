@@ -1,65 +1,55 @@
+import clsx from "clsx";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { selectorIsAuth } from "redux/auth/authSelectors";
 import { selectorTheme } from "redux/theme/themeSelectors";
 import { themeToggle } from "redux/theme/themeSlice";
+import s from "./MainNav.module.scss";
 
-const navStyle = {
-  display: "flex",
-  justifyContent: "center",
-  backgroundColor: "#b1ca8c",
-};
-
-const listStyle = {
-  display: "flex",
-  margin: "0 auto",
-  padding: "16px 0",
-  columnGap: "8px",
-};
-
-const itemStyle = { display: "flex" };
-
-const linkStyle = {
-  fontSize: "26px",
-  padding: "12px 24px",
-  backgroundColor: "green",
-  border: "1px solid red",
-  borderRadius: "4px",
-  color: "white",
-  textDecoration: "none",
-  transition: "fontSize 1s linear",
-};
-
-const getLinkActiveStyle = ({ isActive }) =>
-  isActive
-    ? {
-        ...linkStyle,
-        color: "yellow",
-        fontSize: "30px",
-        fontWeight: "bold",
-        border: "2.5px solid blue",
-      }
-    : linkStyle;
+const getLinkActiveClass = ({ isActive }) => clsx(s.link, isActive && s.active);
 
 const MainNav = () => {
   const dispatch = useDispatch();
   const theme = useSelector(selectorTheme);
+  const isAuth = useSelector(selectorIsAuth);
 
   return (
-    <nav style={navStyle}>
-      <button onClick={() => dispatch(themeToggle())}>
-        ThemeToggle - {theme}
+    <nav className={s.nav}>
+      <button
+        className={clsx(s.btnToggle, theme === "dark" && s.dark)}
+        onClick={() => dispatch(themeToggle())}
+      >
+        ThemeToggle <br />
+        <span>{theme}</span>
       </button>
-      <ul style={listStyle}>
-        <li style={itemStyle}>
-          <NavLink style={getLinkActiveStyle} to="/todo">
-            Todo
-          </NavLink>
-        </li>
-        <li style={itemStyle}>
-          <NavLink style={getLinkActiveStyle} to="/counter">
-            Counter
-          </NavLink>
-        </li>
+      <ul className={s.list}>
+        {isAuth ? (
+          <>
+            <li className={s.item}>
+              <NavLink className={getLinkActiveClass} to="/todo">
+                Todo
+              </NavLink>
+            </li>
+            <li className={s.item}>
+              <NavLink className={getLinkActiveClass} to="/counter">
+                Counter
+              </NavLink>
+            </li>
+          </>
+        ) : (
+          <>
+            <li className={s.item}>
+              <NavLink className={getLinkActiveClass} to="/login">
+                Login
+              </NavLink>
+            </li>
+            <li className={s.item}>
+              <NavLink className={getLinkActiveClass} to="/register">
+                Register
+              </NavLink>
+            </li>
+          </>
+        )}
       </ul>
     </nav>
   );

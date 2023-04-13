@@ -17,10 +17,7 @@ const counterSlice = createSlice({
       return iS;
     },
   },
-  extraReducers: (b) => b.addCase(logout, () => iS),
 });
 
-// counter/increment
 export const { decrement, increment, reset } = counterSlice.actions;
 export default counterSlice.reducer;
-// (state = 200, action) => {return state}
