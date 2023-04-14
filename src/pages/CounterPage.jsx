@@ -21,7 +21,7 @@ const CounterPage = () => {
       )
       .then(({ data: { articles } }) => setNews(articles))
       .finally(() => setIsLoading(false));
-  }, [dispatch]);
+  }, [setIsLoading]);
 
   return <Counter />;
 };
