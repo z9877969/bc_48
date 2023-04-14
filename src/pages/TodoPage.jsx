@@ -1,21 +1,19 @@
-import ToDoForm from "components/TodoForm/TodoForm";
-import ToDoList from "components/TodoList/TodoList";
-import PrioritySelect from "components/PrioritySelect/PrioritySelect";
-import { useEffect } from "react";
-import { getTodo } from "redux/todo/todoOperations";
 import { useDispatch, useSelector } from "react-redux";
 
-// const store = {
-//   dispatch: () => {} // ref
-// }
+import PrioritySelect from "components/PrioritySelect/PrioritySelect";
+import ToDoForm from "components/TodoForm/TodoForm";
+import ToDoList from "components/TodoList/TodoList";
+import { getTodo } from "redux/todo/todoOperations";
+import { selectIsLocalId } from "redux/auth/authSelectors";
+import { useEffect } from "react";
 
 const TodoPage = () => {
   const dispatch = useDispatch();
-  // const isTodoExist = useSelector((state) => Boolean(state.todo.items.length));
+  const isLacalId = useSelector(selectIsLocalId);
 
   useEffect(() => {
-    dispatch(getTodo());
-  }, [dispatch]);
+    isLacalId && dispatch(getTodo());
+  }, [dispatch, isLacalId]);
 
   return (
     <>

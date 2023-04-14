@@ -1,12 +1,15 @@
+import "./index.scss";
+
+import { persistor, store } from "./redux/store";
+
+import App from "./components/App/App";
+import { BrowserRouter } from "react-router-dom";
+import LoaderProvider from "context/LoaderProvider";
+import { PersistGate } from "redux-persist/integration/react";
+import { Provider } from "react-redux";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
-import "./index.scss";
-import App from "./components/App/App";
 import Theme from "./components/Theme/Theme";
-import { persistor, store } from "./redux/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -15,7 +18,9 @@ root.render(
     <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
         <Theme>
-          <App />
+          <LoaderProvider>
+            <App />
+          </LoaderProvider>
         </Theme>
       </BrowserRouter>
     </PersistGate>

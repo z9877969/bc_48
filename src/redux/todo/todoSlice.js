@@ -1,10 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
 import {
   addTodo,
   getTodo,
   removeTodo,
   updateTodoStatus,
 } from "./todoOperations";
+
+import { createSlice } from "@reduxjs/toolkit";
+import { logout } from "redux/auth/authSlice";
 
 const initialState = {
   items: [],
@@ -17,9 +19,6 @@ const todoSlice = createSlice({
   name: "todo",
   initialState,
   reducers: {
-    logout() {
-      return initialState;
-    },
     changeFilter: {
       reducer(state, { payload }) {
         return {
@@ -54,6 +53,9 @@ const todoSlice = createSlice({
           el.id !== payload.id ? el : { ...el, ...payload }
         );
       })
+      .addCase(logout, () => {
+        return initialState;
+      })
       .addMatcher(
         (action) => action.type.endsWith("/pending"),
         (state) => {
@@ -71,6 +73,6 @@ const todoSlice = createSlice({
   },
 });
 
-export const { changeFilter, logout } = todoSlice.actions;
+export const { changeFilter } = todoSlice.actions;
 
 export default todoSlice.reducer;

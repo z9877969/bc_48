@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { logout } from "redux/todo/todoSlice";
 
 const iS = 300;
 

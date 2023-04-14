@@ -1,23 +1,35 @@
+import {
+  getUserData,
+  loginUser,
+  refreshToken,
+  registerUser,
+} from "./authOperations";
+
 import { createSlice } from "@reduxjs/toolkit";
-import { getUserData, loginUser, registerUser } from "./authOperations";
+
+const initialState = {
+  isAuth: false,
+  idToken: null,
+  localId: null,
+  email: null,
+  refreshToken: null,
+  isLoading: false,
+  error: null,
+};
 
 const authSlice = createSlice({
   name: "auth",
-  initialState: {
-    isAuth: false,
-    idToken: null,
-    localId: null,
-    email: null,
-    refreshToken: null,
-    isLoading: false,
-    error: null,
+  initialState,
+  reducers: {
+    logout() {
+      return initialState;
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(registerUser.fulfilled, (state, { payload }) => {
         return {
           ...state,
-          isLoading: false,
           ...payload,
           isAuth: true,
         };
@@ -27,21 +39,33 @@ const authSlice = createSlice({
           ...state,
           ...payload,
           isAuth: true,
-          isLoading: false,
         };
       })
       .addCase(getUserData.fulfilled, (state, { payload }) => {
         const { email, localId } = payload;
-        state.isLoading = false;
         state.email = email;
         state.localId = localId;
         state.isAuth = true;
+      })
+      .addCase(refreshToken.fulfilled, (state, { payload }) => {
+        const { refreshToken, idToken } = payload;
+        state.idToken = idToken;
+        state.refreshToken = refreshToken;
       })
       .addMatcher(
         (action) =>
           action.type.startsWith("auth") && action.type.endsWith("/pending"),
         (state) => {
+          console.log("matcher");
           state.isLoading = true;
+        }
+      )
+      .addMatcher(
+        (action) =>
+          action.type.startsWith("auth") && action.type.endsWith("/fulfilled"),
+        (state) => {
+          state.isLoading = false;
+          state.error = null;
         }
       )
       .addMatcher(
@@ -55,4 +79,5 @@ const authSlice = createSlice({
   },
 });
 
+export const { logout } = authSlice.actions;
 export default authSlice.reducer;

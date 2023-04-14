@@ -4,11 +4,11 @@ const API_KEY = "AIzaSyB8SlD-pDQ4BnyBtC6Z7-a48eO4FmP0MyE";
 const baseUrl = {
   DB: "https://bc-34-be4cc-default-rtdb.firebaseio.com",
   AUTH: "https://identitytoolkit.googleapis.com/v1",
+  REFRESH_TOKEN: "https://securetoken.googleapis.com/v1",
 };
 
 const setBaseUrl = (url) => (axios.defaults.baseURL = url);
 
-// "https://<DATABASE_NAME>.firebaseio.com/users/ada/name.json?auth=<ID_TOKEN>"
 export const addTodoApi = ({ todo, localId, idToken }) => {
   setBaseUrl(baseUrl.DB);
   return axios
@@ -31,12 +31,18 @@ export const getTodoApi = ({ localId, idToken }) => {
       },
     })
     .then(({ data }) =>
-      Object.entries(data).map(([id, todo]) => ({ ...todo, id }))
+      data ? Object.entries(data).map(([id, todo]) => ({ ...todo, id })) : []
     );
 };
 
-export const removeTodoApi = (id) => {
-  return axios.delete(`/todo/${id}.json`).then(() => id);
+export const removeTodoApi = ({ id, localId, idToken }) => {
+  return axios
+    .delete(`/users/${localId}/todo/${id}.json`, {
+      params: {
+        auth: idToken,
+      },
+    })
+    .then(() => id);
 };
 
 export const updateTodoStatusApi = ({ id, isDone }) => {
@@ -95,7 +101,6 @@ export const loginUserApi = ({ email, password }) => {
     }));
 };
 
-// https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=[API_KEY]
 export const getUserDataApi = (idToken) => {
   setBaseUrl(baseUrl.AUTH);
   return axios
@@ -104,4 +109,26 @@ export const getUserDataApi = (idToken) => {
       const { localId, email } = data.users[0];
       return { localId, email };
     });
+};
+
+// https://securetoken.googleapis.com/v1/token?key=[API_KEY]
+export const refreshTokenApi = (refreshToken) => {
+  setBaseUrl(baseUrl.REFRESH_TOKEN);
+  return axios
+    .post(
+      "/token",
+      {
+        grant_type: "refresh_token",
+        refresh_token: refreshToken,
+      },
+      {
+        params: {
+          key: API_KEY,
+        },
+      }
+    )
+    .then(({ data: { refresh_token: refreshToken, id_token: idToken } }) => ({
+      refreshToken,
+      idToken,
+    }));
 };

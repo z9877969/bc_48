@@ -2,5 +2,6 @@
 
 # Lesson-16(auth)
 
-### 1. auth | token
-### 2. AuthForm
+### 1. public | private - routes
+### 2. errorHandler
+### 3. loaderProvider

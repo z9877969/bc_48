@@ -1,10 +1,12 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   addTodoApi,
   getTodoApi,
   removeTodoApi,
   updateTodoStatusApi,
 } from "services/firebaseApi";
+
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { errorHandler } from "redux/error/errorHandler";
 
 export const addTodo = createAsyncThunk(
   "todo/add",
@@ -18,6 +20,7 @@ export const addTodo = createAsyncThunk(
       });
       return todo;
     } catch (error) {
+      thunkApi.dispatch(errorHandler({ error, cb: () => addTodo(newTodo) }));
       return thunkApi.rejectWithValue(error.message);
     }
   }
@@ -31,7 +34,7 @@ export const getTodo = createAsyncThunk(
       const data = await getTodoApi({ localId, idToken });
       return data;
     } catch (error) {
-      console.dir(error);
+      thunkApi.dispatch(errorHandler({ error, cb: getTodo }));
       return thunkApi.rejectWithValue(error.message);
     }
   },
@@ -47,11 +50,13 @@ export const getTodo = createAsyncThunk(
 
 export const removeTodo = createAsyncThunk(
   "todo/remove",
-  async (id, { rejectWithValue }) => {
+  async (id, { rejectWithValue, getState, dispatch }) => {
+    const { idToken, localId } = getState().auth;
     try {
-      await removeTodoApi(id);
+      await removeTodoApi({ id, localId, idToken });
       return id;
     } catch (error) {
+      dispatch(errorHandler({ error, cb: () => removeTodo(id) }));
       return rejectWithValue(error.meassge);
     }
   }

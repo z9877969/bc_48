@@ -1,19 +1,21 @@
-import { configureStore } from "@reduxjs/toolkit";
 import {
-  persistStore,
-  persistReducer,
   FLUSH,
-  REHYDRATE,
   PAUSE,
   PERSIST,
   PURGE,
   REGISTER,
+  REHYDRATE,
+  persistReducer,
+  persistStore,
 } from "redux-persist";
-import storage from "redux-persist/lib/storage";
-import counterReducer from "./counter/counterSlice";
-import todoReducer from "./todo/todoSlice";
-import themeReducer from "./theme/themeSlice";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+
 import authReducer from "./auth/authSlice";
+import counterReducer from "./counter/counterSlice";
+import loaderReducer from "./loader/loaderSlice";
+import storage from "redux-persist/lib/storage";
+import themeReducer from "./theme/themeSlice";
+import todoReducer from "./todo/todoSlice";
 
 const authPersistConfigs = {
   key: "token",
@@ -29,6 +31,7 @@ export const store = configureStore({
     todo: todoReducer,
     count: counterReducer,
     theme: themeReducer,
+    isLoading: loaderReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

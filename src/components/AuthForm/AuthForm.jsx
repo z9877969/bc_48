@@ -1,5 +1,5 @@
+import s from "./AuthForm.module.scss";
 import { useState } from "react";
-import { loginUserApi } from "services/firebaseApi";
 
 const AuthForm = ({ onSubmit, btnSubmit }) => {
   const [form, setForm] = useState({
@@ -14,14 +14,11 @@ const AuthForm = ({ onSubmit, btnSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // dispatch(loginUser(form))
-    // loginUserApi(form)
-    // console.log(form);
     onSubmit(form);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={s.form} onSubmit={handleSubmit}>
       <label>
         <p>Email</p>
         <input
@@ -29,6 +26,7 @@ const AuthForm = ({ onSubmit, btnSubmit }) => {
           name="email"
           value={form.email}
           onChange={handleChange}
+          placeholder="Enter email"
         />
       </label>
       <label>
@@ -38,9 +36,9 @@ const AuthForm = ({ onSubmit, btnSubmit }) => {
           name="password"
           value={form.password}
           onChange={handleChange}
+          placeholder="Enter password"
         />
       </label>
-      <br />
       <button type="submit">{btnSubmit}</button>
     </form>
   );

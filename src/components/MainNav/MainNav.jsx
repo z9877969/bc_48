@@ -1,10 +1,12 @@
-import clsx from "clsx";
 import { useDispatch, useSelector } from "react-redux";
+
 import { NavLink } from "react-router-dom";
+import clsx from "clsx";
+import { logout } from "redux/auth/authSlice";
+import s from "./MainNav.module.scss";
 import { selectorIsAuth } from "redux/auth/authSelectors";
 import { selectorTheme } from "redux/theme/themeSelectors";
 import { themeToggle } from "redux/theme/themeSlice";
-import s from "./MainNav.module.scss";
 
 const getLinkActiveClass = ({ isActive }) => clsx(s.link, isActive && s.active);
 
@@ -51,6 +53,14 @@ const MainNav = () => {
           </>
         )}
       </ul>
+      {isAuth && (
+        <button
+          className={clsx(s.btnToggle, theme === "dark" && s.dark)}
+          onClick={() => dispatch(logout())}
+        >
+          Logout
+        </button>
+      )}
     </nav>
   );
 };
