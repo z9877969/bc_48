@@ -70,7 +70,7 @@ const TodoForm = () => {
 
   const { errors, touched, values, handleChange, handleSubmit } = formik;
 
-  console.log("formik :>> ", formik);
+  // console.log("formik :>> ", formik);
 
   return (
     <form className={s.form} onSubmit={handleSubmit}>
